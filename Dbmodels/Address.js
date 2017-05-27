@@ -11,7 +11,7 @@ var addressSchema = new Schema(
       } );
 
 addressSchema.plugin(autoInc.plugin,'address');
-  var address = mongoose.model('address',addressSchema);
-  
-  module.exports= address;    
+var address = mongoose.model('address',addressSchema);
+
+module.exports= address;    
  
