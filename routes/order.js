@@ -26,8 +26,6 @@ router.post('/', function (req, res, next) {
     delete order.orderItems;
     var newOrder = orderDb(order);
 
-    console.log(order);
-
     newOrder.save(function (err,data) {
         if (err){
              console.log(err);
