@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+
 var customer = require('./Dbmodels/Customer');
 var payment = require('./Dbmodels/Payment');
 var address = require('./Dbmodels/Address');
@@ -15,8 +16,14 @@ var custRoute= require('./routes/customer');
 var shopCartRoute= require('./routes/shoppingCart');
 
 
+var product = require('./routes/product');
+var catalog = require('./routes/catalog');
+var order = require('./routes/order');
+
+
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://root:root@ds155961.mlab.com:55961/ebazaardb');
+
 
 var newAdress= address({street:'1000N',state:'IA',city:'fairfield',zipcode:52557});
 var newPayment= payment({nameOnCard:'Biniam',cardType:'visa',cardNumber:3241,expDate:new Date("2020-12-11")});
@@ -41,6 +48,12 @@ var defaultShopCart= shopCart({customerId:4,payment:newPayment,
 // newAdress.save(function(err){
 // console.log(err);  
 // })
+
+//var newAdress= address({street:'1000N',state:'IA',city:'fairfield',zipcode:52557});
+// newAdress.save(function(err){
+//   console.log(err); 
+// });
+
 var app = express();
 
 // view engine setup
@@ -57,6 +70,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+
 app.use('/customer',custRoute);
 app.use('/shoppingCart',shopCartRoute);
 
@@ -67,6 +81,11 @@ app.all('*', function(req,res,next){
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   next();
 })
+
+app.use('/product',product);
+app.use('/catalog',catalog);
+app.use('/order',order);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
