@@ -29,8 +29,8 @@ router.post('/',function(req,res,next){
                 if(err) { console.log('error');
                     res.end(err+"");}
                 else{ 
-                    //res.json(itemData);
-                    console.log('saved the item');
+                  //  res.json(itemData);
+                    console.dir(itemData);
                 }
             })
         }
