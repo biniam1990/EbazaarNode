@@ -7,15 +7,17 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var customer = require('./Dbmodels/Customer');
-var address = require('./Dbmodels/Address');
+var product = require('./routes/product');
+var catalog = require('./routes/catalog');
+var order = require('./routes/order');
+
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://root:root@ds155961.mlab.com:55961/ebazaardb');
 
-var newAdress= address({street:'1000N',state:'IA',city:'fairfield',zipcode:52557});
-newAdress.save(function(err){
-console.log(err); 
-})
+//var newAdress= address({street:'1000N',state:'IA',city:'fairfield',zipcode:52557});
+// newAdress.save(function(err){
+//   console.log(err); 
+// });
 var app = express();
 
 // view engine setup
@@ -32,6 +34,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/product',product);
+app.use('/catalog',catalog);
+app.use('/order',order);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
